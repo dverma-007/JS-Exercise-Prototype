@@ -9,14 +9,14 @@
 
 // EXAMPLE SOLUTION CODE:
 function Airplane(name) {
-  this.name = name;
-  this.isFlying = false;
+    this.name = name;
+    this.isFlying = false;
 }
-Airplane.prototype.takeOff = function () {
-  this.isFlying = true;
+Airplane.prototype.takeOff = function() {
+    this.isFlying = true;
 };
-Airplane.prototype.land = function () {
-  this.isFlying = false;
+Airplane.prototype.land = function() {
+    this.isFlying = false;
 };
 
 
@@ -39,14 +39,47 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
-  
+function Person(name, age) {
+    this.name = name;
+    this.age = age;
+    this.stomach = [];
 }
+Person.prototype.eat = function(edible) {
+    if (this.stomach.length < 10) {
+        this.stomach.push(edible);
+    }
+}
+Person.prototype.poop = function() {
+    this.stomach = [];
+}
+Person.prototype.toString = function() {
+    return `${this.name}, ${this.age}`
+}
+const Student1 = new Person('Deepak', 53);
+const Student2 = new Person('Jeff', 33);
+const Student3 = new Person('Jane', 22);
 
 
+console.log(Student1.toString());
+console.log(Student2.toString());
+console.log(Student3.toString());
 
+Student1.eat('sardines')
+Student1.eat('Protein bar')
+Student1.eat('Sandwich')
+Student1.eat('milk')
+Student1.eat('cookies')
+Student1.eat('banana')
+Student1.eat('orange juice')
+Student1.eat('apple')
+Student1.eat('pear')
+Student1.eat('steak')
+Student1.eat('hamburger')
 
+console.log(Student1.stomach);
 
+Student1.poop();
+console.log(Student1.stomach);
 
 
 /*
@@ -63,8 +96,15 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
-  
+function Car(model, milesPerGallon) {
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
+}
+
+Car.prototype.fill = function(gallons) {
+    this.tank = this.tank + gallons;
 }
 
 
@@ -75,8 +115,13 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
- 
+function Baby(name, age, favoriteToy) {
+    Person.call(this, name, age);
+    this.favoriteToy = favoriteToy
+}
+Baby.prototype = Object.create(Person.prototype);
+Baby.prototype.play = function() {
+    return `Playing with ${this.favoriteToy}`
 }
 
 
@@ -93,14 +138,14 @@ function Baby() {
 ///////// END OF CHALLENGE /////////
 
 /* 🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 Please do not modify anything below this line 🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 */
-function foo(){
-  console.log('its working!');
-  return 'bar';
+function foo() {
+    console.log('its working!');
+    return 'bar';
 }
 foo();
 module.exports = {
-  foo,
-  Person, 
-  Car,
-  Baby
+    foo,
+    Person,
+    Car,
+    Baby
 }
